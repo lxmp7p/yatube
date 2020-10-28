@@ -8,12 +8,21 @@
     <!-- Загрузка статики -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
 </head>
 
 <body>
 
+ {% block nav %}
+ <div class="sidenav">
+  <a href="{% url 'index' %}">Главная</a>
+  <a href="{% url 'watch_group_list' %}">Группы</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+    {% endblock %}
     <main>
         <div class="container">
             <h1>{% block header %}The Last Social Media You'll Ever Need{% endblock %}</h1>

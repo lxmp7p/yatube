@@ -19,9 +19,11 @@ def watch_group_list(request):
 def watch_group(request, slug):
     idGroup = Group.objects.filter(slug=slug)[:1]
     groupName = idGroup[0].title
+    descriptionGroup = idGroup[0].description
+
     idGroup = idGroup[0].id
     latest = Post.objects.order_by("-pub_date").filter(group=idGroup)[:10]
-    return render(request, "groups/group.html", {'groupName':groupName, 'posts':latest, 'groupSlug':slug})
+    return render(request, "groups/group.html", {'groupName':groupName, 'posts':latest, 'groupSlug':slug, 'descriptionGroup':descriptionGroup, })
 
 def add_post(request,slug):
     form = PostForm()

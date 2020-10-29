@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %}{{ groupName }}{% endblock %}
-{% block header %}{{ groupName }} <a href="../../addPost/{{groupSlug}}">Создать пост</a>{% endblock %}
+{% block header %}
+    {{ groupName }}
+    <a href="../../addPost/{{groupSlug}}">Создать пост</a>
+<hr>
+<h4><i>О сообществе: {{ descriptionGroup }}</i></h4>
+<hr>
+{% endblock %}
 
 {% block content %}
     {% for post in posts %}

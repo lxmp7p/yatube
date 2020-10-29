@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ groupName }}{% endblock %}
+{% block header %}{{ groupName }}{% endblock %}
+
+{% block content %}
+<div class="text-center">
+<form action="" method="post" action="{% url 'watch_group_list' %}">
+    {% csrf_token %}
+      {% for field in form %}
+      <div class="form-group">
+    <label for="exampleFormControlTextarea1">{{field.label_tag}}</label>
+    <div class="form-group">{{field}}</div>
+  </div>
+
+    {% endfor %}
+    <input type="submit" value="Опубликовать">
+</form>
+</div>
+
+{% endblock %}

@@ -1,9 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
 from .models import Group
-
+from .forms import PostForm
+from .func import get_group_list
+import datetime
+from .func import get_id_group_on_slug
+from django.contrib.auth import get_user_model
 
 def index(request):
+    get_group_list(title=True)
     latest = Post.objects.order_by("-pub_date")[:11]
     return render(request, "index.html", {"posts": latest})
 
@@ -16,4 +21,22 @@ def watch_group(request, slug):
     groupName = idGroup[0].title
     idGroup = idGroup[0].id
     latest = Post.objects.order_by("-pub_date").filter(group=idGroup)[:10]
-    return render(request, "groups/group.html", {'groupName':groupName, 'posts':latest})
+    return render(request, "groups/group.html", {'groupName':groupName, 'posts':latest, 'groupSlug':slug})
+
+def add_post(request,slug):
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            userObject = None
+            User = get_user_model()
+            for user in User.objects.all():
+                if (str(user) == request.user.username):
+                    userObject = user
+            post = form.save(commit=False)
+            post.author = userObject
+            post.pub_date = datetime.datetime.now()
+            post.group_id = get_id_group_on_slug(slug)
+            post.save()
+            return redirect('../groups/' + slug)
+    return render(request, "groups/addPost.html", {"form": form})

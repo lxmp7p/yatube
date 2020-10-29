@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ groupName }}{% endblock %}
-{% block header %}{{ groupName }}{% endblock %}
+{% block header %}{{ groupName }} <a href="../../addPost/{{groupSlug}}">Создать пост</a>{% endblock %}
 
 {% block content %}
-
     {% for post in posts %}
     <hr>
     <h3>

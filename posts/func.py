@@ -16,3 +16,4 @@ def get_name_gropu_on_slug(slug):
     idGroup = get_id_group_on_slug(slug)
     groupName = idGroup[0].title
     return (groupName)
+

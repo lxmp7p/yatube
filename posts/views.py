@@ -6,14 +6,15 @@ from .func import get_group_list
 import datetime
 from .func import get_id_group_on_slug
 from django.contrib.auth import get_user_model
+import django.contrib.auth
 
 def index(request):
     get_group_list(title=True)
-    latest = Post.objects.order_by("-pub_date")[:11]
+    latest = Post.objects.order_by("-pub_date").select_related()[:11]
     return render(request, "index.html", {"posts": latest})
 
 def watch_group_list(request):
-    groupList = Group.objects.all()
+    groupList = Group.objects.select_related().all()
     return render(request, "groups/groupsList.html", {'groupList':groupList},)
 
 def watch_group(request, slug):
@@ -21,7 +22,7 @@ def watch_group(request, slug):
     groupName = idGroup[0].title
     descriptionGroup = idGroup[0].description
     idGroup = idGroup[0].id
-    latest = Post.objects.order_by("-pub_date").filter(group=idGroup)[:10]
+    latest = Post.objects.order_by("-pub_date").filter(group=idGroup).prefetch_related()[:10]
     return render(request, "groups/group.html", {'groupName':groupName, 'posts':latest, 'groupSlug':slug, 'descriptionGroup':descriptionGroup, })
 
 def add_post(request,slug):

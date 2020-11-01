@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'crispy_forms',
     'posts',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -126,4 +127,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 INTERNAL_IPS = ('127.0.0.1',)
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -14,14 +14,8 @@
 </head>
 
 <body>
-
- {% block nav %}
- <div class="sidenav">
-  <a href="{% url 'index' %}">Главная</a>
-  <a href="{% url 'watch_group_list' %}">Группы</a>
-  <a href="#">Contact</a>
-</div>
-    {% endblock %}
+{% if user.is_authenticated %}
+{% include 'nav.html' %}
     <main>
         <div class="container">
             <h1>{% block header %}The Last Social Media You'll Ever Need{% endblock %}</h1>
@@ -30,6 +24,9 @@
             {% endblock %}
         </div>
     </main>
+{% else %}
+<meta http-equiv="refresh" content="1;URL= {% url 'login' %} " />
+{% endif %}
 
 </body>
 

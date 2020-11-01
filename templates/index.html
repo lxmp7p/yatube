@@ -3,12 +3,16 @@
 {% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
 
+{% block posts %}
     {% for post in posts %}
     <h3>
-        Автор: {{ post.author.get_full_name }}, Дата публикации: {{ post.pub_date|date:"d M Y" }}
+        Автор: {{ post.author.get_full_name }}
     </h3>
     <p>{{ post.text|linebreaksbr }}</p>
+<hr>
+    <h6>{{ post.pub_date|date:"d M Y H:m" }}</h6>
     {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
+{% endblock %}
 
 {% endblock %}

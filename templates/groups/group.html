@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 {% block title %}{{ groupName }}{% endblock %}
 {% block header %}
     {{ groupName }}
@@ -8,14 +8,3 @@
 <hr>
 {% endblock %}
 
-{% block content %}
-    {% for post in posts %}
-    <hr>
-    <h3>
-        Автор: {{ post.author.get_full_name }}, Дата публикации: {{ post.pub_date|date:"d M Y" }}
-    </h3>
-    <p>{{ post.text|linebreaksbr }}</p>
-    {% if not forloop.last %}<hr>{% endif %}
-    {% endfor %}
-
-{% endblock %}

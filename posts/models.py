@@ -5,7 +5,7 @@ User = get_user_model()
 
 class Group(models.Model):
     title = models.TextField()
-    slug = models.TextField()
+    slug = models.TextField(unique=True)
     description = models.TextField()
 
 class Post(models.Model):

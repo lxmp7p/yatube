@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 import django.contrib.auth
 from django.contrib.auth.decorators import login_required
 
+
 @login_required(login_url='/auth/login/')
 def index(request):
     get_group_list(title=True)
@@ -45,5 +46,5 @@ def add_post(request,slug):
             post.pub_date = datetime.datetime.now()
             post.group_id = get_id_group_on_slug(slug)
             post.save()
-            return redirect('../groups/' + slug)
+            return redirect('../../groups/' + slug)
     return render(request, "groups/addPost.html", {"form": form})

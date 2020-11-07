@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
 {% block title %}{{ groupName }}{% endblock %}
 {% block header %}
     {{ groupName }}
@@ -6,5 +6,22 @@
 <hr>
 <h4><i>О сообществе: {{ descriptionGroup }}</i></h4>
 <hr>
+{% endblock %}
+{% block content %}
+
+    {% block posts %}
+        {% for post in page %}
+            <h2>
+                Автор: {{ post.author.get_full_name }}
+            </h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+            <hr>
+            <h6>{{ post.pub_date|date:"d M Y H:m" }}</h6>
+            {% if not forloop.last %}<hr>{% endif %}
+        {% endfor %}
+    {% endblock %}
+    {% if page.has_other_pages %}
+        {% include "paginator.html" with items=page paginator=paginator %}
+    {% endif %}
 {% endblock %}
 

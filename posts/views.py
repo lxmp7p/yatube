@@ -8,13 +8,19 @@ from .func import get_id_group_on_slug
 from django.contrib.auth import get_user_model
 import django.contrib.auth
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 @login_required(login_url='/auth/login/')
 def index(request):
     get_group_list(title=True)
-    latest = Post.objects.order_by("-pub_date").select_related()[:11]
-    return render(request, "index.html", {"posts": latest})
+    latest = Post.objects.order_by("-pub_date").select_related()
+    paginator = Paginator(latest, 10)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    return render(request, "index.html", {'page': page,
+                                          'paginator': paginator,
+                                          })
 
 @login_required(login_url='/auth/login/')
 def watch_group_list(request):
@@ -27,8 +33,11 @@ def watch_group(request, slug):
     groupName = idGroup[0].title
     descriptionGroup = idGroup[0].description
     idGroup = idGroup[0].id
-    latest = Post.objects.order_by("-pub_date").filter(group=idGroup).prefetch_related()[:10]
-    return render(request, "groups/group.html", {'groupName':groupName, 'posts':latest, 'groupSlug':slug, 'descriptionGroup':descriptionGroup, })
+    latest = Post.objects.order_by("-pub_date").filter(group=idGroup).prefetch_related()
+    paginator = Paginator(latest, 10)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    return render(request, "groups/group.html", {'groupName':groupName, 'page': page, 'groupSlug':slug, 'descriptionGroup':descriptionGroup, })
 
 @login_required(login_url='/auth/login/')
 def add_post(request,slug):

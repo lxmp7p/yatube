@@ -5,7 +5,6 @@
 
     {% block posts %}
         {% for post in page %}
-            <h2><a href="../groups/{{ post.group.slug }}">{{ post.group.title|linebreaksbr }}</a></h2>
             <p>{{ post.text|linebreaksbr }}</p>
             <hr>
             <h6>{{ post.pub_date|date:"d M Y H:m" }}</h6>

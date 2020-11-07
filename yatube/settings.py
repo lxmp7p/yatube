@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',

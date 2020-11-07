@@ -25,4 +25,5 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path("auth/", include("users.urls")),
     path('login/', views.LoginView.as_view(), name='login'),
+    path('about/', include('django.contrib.flatpages.urls'))
 ]
